@@ -38,6 +38,32 @@ def open_wifidevice_mainwindow():
     win = WifiDeviceMainWindow()
     win.show()
     app.exec_()
+
+def open_debug_wifi():
+    from hearinglosssimulator.gui.wifidevice.gui_debug_wifidevice import WindowDebugWifiDevice
+    from hearinglosssimulator.gui.wifidevice.qwificlient import QWifiClient
+    import pyqtgraph as pg
+
+    udp_ip = "192.168.1.1"
+    udp_port = 6666
+    client = QWifiClient(udp_ip=udp_ip,  udp_port=udp_port)
+    
+    app = pg.mkQApp()
+    win = WindowDebugWifiDevice(client=client)
+    win.show()
+    app.exec_()
+
+
+def open_debug_gpu():
+    from hearinglosssimulator.gui.window_debug_gpu import WindowDebugGPU
+    import pyqtgraph as pg
+
+    app = pg.mkQApp()
+    win = WindowDebugGPU()
+    win.show()
+    app.exec_()    
+
+
     
 def hls():
     argv = sys.argv[1:]
@@ -65,12 +91,17 @@ def hls():
     
     elif command=='wifidevice':
         open_hls_wifi()
+        
+    elif command=='wifidebug':
+        open_debug_wifi()
 
 
 
 if __name__=='__main__':
     #~ open_audiodevice_mainwindow()
     open_wifidevice_mainwindow()
+    #~ open_debug_wifi()
+    #~ open_debug_gpu()
 
 
 
